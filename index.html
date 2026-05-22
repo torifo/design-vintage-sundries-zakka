@@ -10,6 +10,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Sawarabi+Mincho&family=BIZ+UDPMincho:wght@400;700&family=Yuji+Syuku&display=swap" rel="stylesheet">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :where(html,body){
+      line-break:strict;
+      word-break:normal;
+      overflow-wrap:break-word;
+      hanging-punctuation:allow-end;
+    }
+    :where(h1,h2,h3,h4,p,li,dt,dd,figcaption,blockquote,a,span,small,strong,em,button){
+      line-break:strict;
+      word-break:auto-phrase;
+      overflow-wrap:break-word;
+    }
+    :where(h1,h2,h3,h4,[class*=title],[class*=brand],[class*=label],[class*=tag],[class*=kanban],[class*=seal]){text-wrap:balance}
+    :where(p,li,dd,figcaption,blockquote){text-wrap:pretty}
     :root{
       --kinari:#f7f1e8;
       --asa:#d4c3a5;
