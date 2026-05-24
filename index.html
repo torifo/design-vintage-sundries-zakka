@@ -102,9 +102,11 @@
       font-weight:400;
       margin-top:.2em;
     }
-    nav ul{list-style:none;display:flex;gap:clamp(.8rem,2vw,1.8rem);font-family:var(--font-tegaki);font-size:.9rem}
+    nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:clamp(.8rem,2vw,1.8rem);font-family:var(--font-tegaki);font-size:.9rem}
+    nav li{white-space:nowrap}
     nav a{
       position:relative;padding:.2em .4em;
+      white-space:nowrap;
       transition:background .3s;
     }
     nav a::after{
@@ -188,7 +190,21 @@
       background:#fff;
       padding:.8rem .8rem 2.4rem;
       box-shadow:0 6px 18px rgba(0,0,0,.08);
+      transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .3s;
     }
+    /* hover / focus / tap で扇状に展開して全カード可視に */
+    .hero-art:hover .pol-1,
+    .hero-art:focus-within .pol-1,
+    .hero-art.is-spread .pol-1{transform:translate(-32%,-6%) rotate(-10deg);z-index:3}
+    .hero-art:hover .pol-2,
+    .hero-art:focus-within .pol-2,
+    .hero-art.is-spread .pol-2{transform:translate(0,-2%) rotate(2deg);z-index:4}
+    .hero-art:hover .pol-3,
+    .hero-art:focus-within .pol-3,
+    .hero-art.is-spread .pol-3{transform:translate(32%,4%) rotate(6deg);z-index:3}
+    .hero-art:hover .polaroid,
+    .hero-art:focus-within .polaroid,
+    .hero-art.is-spread .polaroid{box-shadow:0 10px 24px rgba(0,0,0,.14)}
     .polaroid::after{
       content:attr(data-cap);
       position:absolute;
@@ -661,7 +677,7 @@
         <span class="htag">紙もの</span>
       </div>
     </div>
-    <div class="hero-art fl a2">
+    <div class="hero-art fl a2" tabindex="0" role="button" aria-label="こけし・和紙・硝子の写真。タップで広げて見る">
       <div class="polaroid pol-1" data-cap="kokeshi · 鳴子">
         <div class="pol-img">
           <svg viewBox="0 0 100 140" aria-hidden="true">
@@ -934,6 +950,17 @@
   </section>
 
 </main>
+
+<script>
+  // モバイル：ヒーローのポラロイドをタップで広げる
+  (function(){
+    var art = document.querySelector('.hero-art');
+    if (!art) return;
+    art.addEventListener('click', function(){
+      art.classList.toggle('is-spread');
+    });
+  })();
+</script>
 
 <footer>
   <a class="brand" href="../">
